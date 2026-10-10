@@ -1,0 +1,22 @@
+{
+  "name": "mishy-flower",
+  "version": "1.0.0",
+  "description": "Interactive web surprise keepsake for Mishy",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx --yes serve . -l 3000",
+    "start": "npx --yes serve . -l 3000",
+    "server": "python -m http.server 3000"
+  },
+  "keywords": [
+    "interactive",
+    "keepsake",
+    "flower",
+    "gift"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}
