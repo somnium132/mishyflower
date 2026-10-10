@@ -7,13 +7,14 @@
   <meta name="description" content="A flower surprise for Mishy featuring Nailong.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Silkscreen:wght@400;700&family=VT323&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <!-- Ambient floating petals & golden starlight -->
   <canvas id="ambient-canvas"></canvas>
 
-  <!-- Clean, minimalist audio toggle -->
+  <!-- Clean, minimalist audio toggle & Background Music -->
+  <audio id="bg-music" src="assets/audio/Bruno%20Mars%20-%20Just%20the%20Way%20You%20Are.mp3" preload="auto" loop></audio>
   <button id="music-btn" class="audio-btn" aria-label="Toggle music">
     <span class="audio-indicator"></span>
     <span id="music-text">Music</span>
@@ -39,7 +40,7 @@
         <!-- Flower that emerges and flies OUT of the box -->
         <div class="flower-escaping-box" id="flower-escaping">
           <div class="flower-escape-glow"></div>
-          <img src="flowermishy.svg" alt="Flowers for Mishy" class="flower-escaping-img">
+          <img src="assets/flowermishy.svg" alt="Flowers for Mishy" class="flower-escaping-img">
         </div>
 
         <!-- Box Body (dissolves away afterwards) -->
@@ -94,14 +95,14 @@
           <!-- Flower Bouquet Showcase (Interactive on click) -->
           <div class="flower-wrapper" id="flower-trigger" role="button" tabindex="0" title="Tap flowers to bloom">
             <div class="bloom-aura" id="bloom-aura"></div>
-            <img src="flowermishy.svg" alt="Flowers for Mishy" class="flower-img" id="flower-img">
+            <img src="assets/flowermishy.svg" alt="Flowers for Mishy" class="flower-img" id="flower-img">
             <div class="flower-ground-glow"></div>
           </div>
 
           <!-- Nailong Companion beside flowers -->
           <div class="nailong-companion" id="nailong-trigger" role="button" tabindex="0" title="Tap Nailong to talk">
             <div class="nailong-character">
-              <img src="nailong.svg" alt="Nailong" class="nailong-img" id="nailong-img">
+              <img src="assets/nailong.svg" alt="Nailong" class="nailong-img" id="nailong-img">
             </div>
             <div class="nailong-ground-shadow"></div>
           </div>
@@ -130,6 +131,6 @@
 
   </main>
 
-  <script src="app.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

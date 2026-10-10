@@ -133,6 +133,20 @@
 
     startMusic(callback) {
       this.init();
+      const audioEl = document.getElementById('bg-music');
+      if (audioEl && audioEl.src) {
+        audioEl.play().then(() => {
+          this.isPlaying = true;
+          if (callback) callback(true);
+        }).catch(() => {
+          this.startSynth(callback);
+        });
+        return;
+      }
+      this.startSynth(callback);
+    }
+
+    startSynth(callback) {
       if (this.isPlaying) return;
       this.isPlaying = true;
       this.step = 0;
@@ -146,6 +160,10 @@
     }
 
     stopMusic(callback) {
+      const audioEl = document.getElementById('bg-music');
+      if (audioEl) {
+        audioEl.pause();
+      }
       this.isPlaying = false;
       if (this.interval) {
         clearInterval(this.interval);
