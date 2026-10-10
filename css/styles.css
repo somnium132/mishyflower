@@ -908,24 +908,6 @@ body.ending-mode::after {
   filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 35px rgba(254, 200, 77, 0.65));
 }
 
-.keepsake-subtitle {
-  font-family: var(--font-serif);
-  font-size: clamp(0.9rem, 2vw, 1.12rem);
-  font-style: italic;
-  font-weight: 400;
-  color: var(--text-muted);
-  letter-spacing: 0.6px;
-  margin-top: 6px;
-  opacity: 0.85;
-  transition: all 1.8s var(--ease-smooth);
-}
-
-.keepsake-card.ending-mode .keepsake-subtitle {
-  color: var(--gold-soft);
-  opacity: 1;
-  text-shadow: 0 0 16px rgba(254, 200, 77, 0.5);
-}
-
 /* Scene Composition: Grand Floral Showcase */
 .scene-composition.ending-mode {
   grid-template-columns: 1.35fr 0.65fr;
@@ -1172,11 +1154,6 @@ body.ending-mode::after {
   .title-sparkle {
     width: clamp(22px, 3.2vw, 30px);
     height: clamp(22px, 3.2vw, 30px);
-  }
-
-  .keepsake-subtitle {
-    font-size: 0.95rem;
-    margin-top: 4px;
   }
 
   /* Side-by-side balanced iPad composition */
