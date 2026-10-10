@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Mishy</title>
+  <meta name="description" content="A flower surprise for Mishy featuring Nailong.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Silkscreen:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Ambient floating petals & golden starlight -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Clean, minimalist audio toggle -->
+  <button id="music-btn" class="audio-btn" aria-label="Toggle music">
+    <span class="audio-indicator"></span>
+    <span id="music-text">Music</span>
+  </button>
+
+  <!-- Golden shine explosion on box opening -->
+  <div class="shine-container hidden" id="shine-container">
+    <div class="shine-burst"></div>
+    <div class="shine-flash"></div>
+  </div>
+
+  <main class="page-container">
+
+    <!-- ============================================== -->
+    <!-- STAGE 1: UNBOXING (FLOWER EMERGES OUT OF BOX)  -->
+    <!-- ============================================== -->
+    <section class="unboxing-stage" id="unboxing-stage">
+      
+      <!-- The Gift Box Assembly -->
+      <div class="box-assembly" id="box-trigger" role="button" tabindex="0" aria-label="Open gift box">
+        <div class="box-aura"></div>
+
+        <!-- Flower that emerges and flies OUT of the box -->
+        <div class="flower-escaping-box" id="flower-escaping">
+          <div class="flower-escape-glow"></div>
+          <img src="flowermishy.svg" alt="Flowers for Mishy" class="flower-escaping-img">
+        </div>
+
+        <!-- Box Body (dissolves away afterwards) -->
+        <div class="box-body" id="box-body">
+          <div class="box-rim-gold"></div>
+          <div class="ribbon-vertical"></div>
+          <div class="ribbon-horizontal"></div>
+        </div>
+
+        <!-- Box Lid with Bow (flies off when clicked) -->
+        <div class="box-lid" id="box-lid">
+          <div class="ribbon-bow">
+            <div class="bow-loop left"></div>
+            <div class="bow-loop right"></div>
+            <div class="bow-center"></div>
+          </div>
+          <div class="lid-surface"></div>
+        </div>
+
+        <!-- Box Floor Shadow -->
+        <div class="box-floor-shadow" id="box-shadow"></div>
+      </div>
+
+    </section>
+
+    <!-- ============================================== -->
+    <!-- STAGE 2: REVEALED GILDED KEEPSAKE (BOX REMOVED)-->
+    <!-- ============================================== -->
+    <section class="keepsake-stage hidden" id="keepsake-stage">
+      
+      <!-- Master Gilded Frame -->
+      <article class="keepsake-card gilded-frame">
+        <div class="frame-corner top-left"></div>
+        <div class="frame-corner top-right"></div>
+        <div class="frame-corner bottom-left"></div>
+        <div class="frame-corner bottom-right"></div>
+        <div class="frame-inner-border"></div>
+
+        <!-- Header -->
+        <header class="keepsake-header">
+          <h1 class="keepsake-title">
+            <span class="title-sparkle">✦</span>
+            For Mishy
+            <span class="title-sparkle">✦</span>
+          </h1>
+        </header>
+
+        <!-- Composition: Flower + Nailong side-by-side -->
+        <div class="scene-composition" id="scene-composition">
+          <div class="scene-backlight"></div>
+
+          <!-- Flower Bouquet Showcase (Interactive on click) -->
+          <div class="flower-wrapper" id="flower-trigger" role="button" tabindex="0" title="Tap flowers to bloom">
+            <div class="bloom-aura" id="bloom-aura"></div>
+            <img src="flowermishy.svg" alt="Flowers for Mishy" class="flower-img" id="flower-img">
+            <div class="flower-ground-glow"></div>
+          </div>
+
+          <!-- Nailong Companion beside flowers -->
+          <div class="nailong-companion" id="nailong-trigger" role="button" tabindex="0" title="Tap Nailong to talk">
+            <div class="nailong-character">
+              <img src="nailong.svg" alt="Nailong" class="nailong-img" id="nailong-img">
+            </div>
+            <div class="nailong-ground-shadow"></div>
+          </div>
+        </div>
+
+        <!-- Retro Indie RPG Dialogue Box across the bottom -->
+        <div class="bottom-dialogue-container" id="dialogue-container">
+          <div class="nailong-bubble pixel-dialogue-box" id="speech-box" role="button" tabindex="0" title="Tap dialogue to advance">
+            <div class="dialogue-box-corner tl"></div>
+            <div class="dialogue-box-corner tr"></div>
+            <div class="dialogue-box-corner bl"></div>
+            <div class="dialogue-box-corner br"></div>
+            <div class="dialogue-nametag">
+              <span class="pixel-sparkle">✦</span> NAILONG
+            </div>
+            <p class="dialogue-text" id="dialogue-text">Hi Mishy! I brought these flowers just for you. Tap me whenever you want a sweet reminder.</p>
+            <div class="dialogue-footer-hint">
+              <span class="dialogue-prompt-label">TAP TO CONTINUE</span>
+              <span class="dialogue-caret ready" id="dialogue-caret" aria-hidden="true">▼</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
