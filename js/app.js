@@ -135,7 +135,7 @@
       this.init();
       const audioEl = document.getElementById('bg-music');
       if (audioEl && audioEl.src) {
-        audioEl.volume = 0.65;
+        audioEl.volume = 0.20; // Soft and gentle background volume
         audioEl.play().then(() => {
           this.isPlaying = true;
           if (callback) callback(true);
@@ -153,7 +153,7 @@
       this.step = 0;
 
       this.interval = setInterval(() => {
-        this.playChime(this.notes[this.step], 1.2, 0.06);
+        this.playChime(this.notes[this.step], 1.2, 0.03);
         this.step = (this.step + 1) % this.notes.length;
       }, 420);
 
@@ -339,6 +339,10 @@
     }
 
     // Audio controls
+    const bgAudio = document.getElementById('bg-music');
+    if (bgAudio) {
+      bgAudio.volume = 0.20;
+    }
     const musicBtn = document.getElementById('music-btn');
     const musicText = document.getElementById('music-text');
 
