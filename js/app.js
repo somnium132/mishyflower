@@ -135,6 +135,7 @@
       this.init();
       const audioEl = document.getElementById('bg-music');
       if (audioEl && audioEl.src) {
+        audioEl.volume = 0.65;
         audioEl.play().then(() => {
           this.isPlaying = true;
           if (callback) callback(true);
@@ -192,6 +193,7 @@
       this.ctx = canvas.getContext('2d');
       this.particles = [];
       this.maxParticles = 26;
+      this.isEndingMode = false;
       this.width = (canvas.width = window.innerWidth);
       this.height = (canvas.height = window.innerHeight);
 
@@ -206,7 +208,20 @@
     }
 
     createParticle(isBurst = false, bx = 0, by = 0) {
-      const isFirefly = Math.random() > 0.65;
+      const rand = Math.random();
+      const isFirefly = rand > 0.6;
+      const isHeart = this.isEndingMode && rand < 0.28;
+      
+      let type = 'petal';
+      let color = 'rgba(244, 160, 178, ';
+      if (isFirefly) {
+        type = 'sparkle';
+        color = 'rgba(254, 200, 77, ';
+      } else if (isHeart) {
+        type = 'heart';
+        color = 'rgba(255, 77, 109, ';
+      }
+
       return {
         x: isBurst ? bx : Math.random() * this.width,
         y: isBurst ? by : Math.random() * this.height - 30,
@@ -215,9 +230,9 @@
         speedX: isBurst ? (Math.random() - 0.5) * 8 : (isFirefly ? Math.random() * 0.4 - 0.2 : Math.random() * 0.3 - 0.15),
         rotation: Math.random() * 360,
         rotationSpeed: (Math.random() - 0.5) * 1.5,
-        type: isFirefly ? 'sparkle' : 'petal',
-        color: isFirefly ? 'rgba(254, 200, 77, ' : 'rgba(244, 160, 178, ',
-        alpha: Math.random() * 0.4 + 0.2,
+        type: type,
+        color: color,
+        alpha: Math.random() * 0.4 + 0.25,
         isBurst: isBurst,
         life: 1,
         decay: isBurst ? Math.random() * 0.02 + 0.012 : 0
@@ -226,6 +241,14 @@
 
     init() {
       for (let i = 0; i < this.maxParticles; i++) {
+        this.particles.push(this.createParticle());
+      }
+    }
+
+    enableEndingMode() {
+      this.isEndingMode = true;
+      this.maxParticles = 55;
+      while (this.particles.length < this.maxParticles) {
         this.particles.push(this.createParticle());
       }
     }
@@ -260,6 +283,12 @@
           this.ctx.beginPath();
           this.ctx.arc(0, 0, p.size, 0, Math.PI * 2);
           this.ctx.fill();
+        } else if (p.type === 'heart') {
+          this.ctx.fillStyle = `${p.color}${currentAlpha})`;
+          this.ctx.font = `${Math.round(p.size * 1.8)}px sans-serif`;
+          this.ctx.textAlign = 'center';
+          this.ctx.textBaseline = 'middle';
+          this.ctx.fillText('♥', 0, 0);
         } else {
           this.ctx.fillStyle = `${p.color}${currentAlpha})`;
           this.ctx.beginPath();
@@ -436,10 +465,17 @@
         typewriterTimeout = null;
       }
       isTyping = false;
-      if (dialogueText) dialogueText.textContent = currentTargetText;
 
       const isEnding = messageIndex === ENDING_INDEX;
       const promptLabel = speechBox ? speechBox.querySelector('.dialogue-prompt-label') : null;
+
+      if (dialogueText) {
+        if (isEnding) {
+          dialogueText.innerHTML = 'And one last thing, Mishy... Never forget how <span class="text-highlight-gold">truly special and loved you are</span>. These flowers will <span class="text-highlight-rose">bloom for you forever</span>.';
+        } else {
+          dialogueText.textContent = currentTargetText;
+        }
+      }
 
       if (dialogueCaret) {
         if (isEnding) {
@@ -448,19 +484,34 @@
           dialogueCaret.classList.add('ready', 'heart-end');
           if (promptLabel) promptLabel.textContent = ''; // Removed repeat part!
 
+          // Enable romantic ambient particle shower with floating hearts!
+          if (petalEngine) {
+            petalEngine.enableEndingMode();
+          }
+
+          // Automatically play background music track if not playing yet
+          if (!sound.isPlaying) {
+            sound.startMusic(updateAudioUI);
+          }
+
+          // Trigger Nailong's cute love bubble!
+          if (nailongTrigger) {
+            nailongTrigger.classList.add('love-active');
+          }
+
           // Magical ending chime fanfare
           sound.playEndingFanfare();
 
           // Golden celebration cascades around the blossoms
           if (petalEngine && flowerTrigger) {
             const rect = flowerTrigger.getBoundingClientRect();
-            petalEngine.burst(rect.left + rect.width / 2, rect.top + rect.height * 0.45, 50);
+            petalEngine.burst(rect.left + rect.width / 2, rect.top + rect.height * 0.45, 60);
             setTimeout(() => {
-              petalEngine.burst(rect.left + rect.width * 0.35, rect.top + rect.height * 0.3, 30);
-            }, 320);
+              petalEngine.burst(rect.left + rect.width * 0.35, rect.top + rect.height * 0.3, 35);
+            }, 300);
             setTimeout(() => {
-              petalEngine.burst(rect.left + rect.width * 0.65, rect.top + rect.height * 0.35, 30);
-            }, 650);
+              petalEngine.burst(rect.left + rect.width * 0.65, rect.top + rect.height * 0.35, 35);
+            }, 600);
           }
         } else {
           dialogueCaret.textContent = '▼';
@@ -493,7 +544,7 @@
         if (nailongTrigger) nailongTrigger.classList.add('ending-mode');
         if (dialogueContainer) dialogueContainer.classList.add('ending-mode');
         if (dialogueNametag) {
-          dialogueNametag.innerHTML = '<span class="pixel-sparkle">✦</span> NAILONG · [ FIN ♥ ]';
+          dialogueNametag.innerHTML = '<span class="pixel-sparkle">✦</span> NAILONG · [ FOREVER FOR MISHY ♥ ]';
         }
         if (promptLabel) {
           promptLabel.textContent = '';
@@ -565,13 +616,17 @@
         return;
       }
 
-      // If already at the ending, DO NOT REPEAT!
+      // If already at the ending, interactive love bounce & sparkles!
       if (messageIndex === ENDING_INDEX) {
         sound.playBounce();
         if (nailongTrigger) {
-          nailongTrigger.classList.remove('bounce');
+          nailongTrigger.classList.remove('bounce', 'love-active');
           void nailongTrigger.offsetWidth; // Force reflow
-          nailongTrigger.classList.add('bounce');
+          nailongTrigger.classList.add('bounce', 'love-active');
+        }
+        if (petalEngine && flowerTrigger) {
+          const rect = flowerTrigger.getBoundingClientRect();
+          petalEngine.burst(rect.left + rect.width / 2, rect.top + rect.height * 0.4, 30);
         }
         return; // Eternal ending - do not repeat!
       }
